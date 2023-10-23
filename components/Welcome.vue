@@ -18,7 +18,9 @@
         </aside>
         <div class="lg:col-span-4">
           <section class="container py-5">
-            <h3>Modify Scores</h3>
+            <h2 class="heading2">Modify Scores</h2>
+            <button class="btn btn-secondary btn-xs mr-2" @click="saveScores()">save game</button>
+
             <button class="btn btn-primary btn-xs" @click="resetScores()">reset scores</button>
             <div class="overflow-x-auto">
             <table class="table table-fixed">
@@ -56,10 +58,11 @@
             </table>
           </div>
           </section>
+          <div class="divider"></div> 
           <!-- Leaderboard -->
           <section class="container py-5">
             <div>
-              <h3>Leaderboard</h3>
+              <h2 class="heading2">Leaderboard</h2>
 
               <TransitionGroup name="fade" tag="ol">
                 <li v-for="(player, index) in sortedPlayers" :key="player.name" class="p-5">
@@ -72,12 +75,12 @@
 
             </div>
           </section>
-            
+          <div class="divider"></div>  
           <section class="container py-5">
             <div>  
                 
                 <form>
-                  <h3>Spielermanagement</h3>
+                  <h2 class="heading2">Spielermanagement</h2>
                   <input 
                     type="text" 
                     placeholder="Name" 
@@ -92,9 +95,10 @@
 
               </div>
           </section>
-
+          <div class="divider"></div> 
           <!-- Past Games -->
           <section class="container py-5">
+            <h2 class="heading2">Statistik</h2>
             <table class="table">
               <thead>
                 <tr>
@@ -121,6 +125,10 @@
 
           
         </div>
+
+        <!-- Save Modal -->
+        <SaveModal v-show="isSaveModalVisible" :players="players" @closeModal="closeModal" />
+
       </main>
     </div>
   </template>
@@ -139,6 +147,7 @@
         return [...players.value].sort((a, b) => b.score - a.score);
       });
     const name = ref('')
+    const isSaveModalVisible = ref(false);
 
   
     watch(name, (newVal) => {
@@ -193,6 +202,15 @@
       });
     }
 
+    const closeModal = () => {
+      isSaveModalVisible.value = false;
+    }
+
+    const saveScores = () => {
+      console.log("executing")
+      // Logic to prepare data and save scores
+      isSaveModalVisible.value = true;
+    };
 
     // DB Interaction for past games //////////////////////////////////////////////
     const games = ref([]);
