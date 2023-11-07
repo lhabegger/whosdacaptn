@@ -1,3 +1,5 @@
+import { firestore } from '../utils/firebase';
+
 <template>
   
     <div>
@@ -98,22 +100,20 @@
           <div class="divider"></div> 
           <!-- Past Games -->
           <section class="container py-5">
-            <h2 class="heading2">Statistik</h2>
+            <h2 class="heading2">Vergangen Spiele</h2>
             <table class="table">
               <thead>
                 <tr>
                   <th>Game ID</th>
                   <th>Ort</th>
-                  <th>Name</th>
+                  <th>Players</th>
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="game in games">
-                  <td>{{ game.game_uid }}</td>
-                  <td>{{ game.location }}</td>
-                  <td>{{ game.player }}</td>
-                  <td>{{ game.score }}</td>
-                  <td>{{ game.createdAt }}</td>
+                  <td>{{ game.id }}</td>
+                  <td>{{ game.data.Ort }}</td>
+                  <td>{{ game.data.players }}</td>
                   <!-- Render other properties of the game object as table cells -->
                   <!-- For example: <td>{{ game.propertyName }}</td> -->
                 </tr>
@@ -217,7 +217,7 @@
 
     onMounted(async () => {
       try {
-        const response = await fetch('/api/games');
+        const response = await fetch('/api/animal');
         if (response.ok) {
           const data = await response.json();
           games.value = data.games;
