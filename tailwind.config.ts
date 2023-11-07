@@ -68,5 +68,5 @@ export default <Partial<Config>>{
       },
     },
   },
-  plugins: [require('daisyUI')],
+  plugins: [require('daisyui')],
 };
