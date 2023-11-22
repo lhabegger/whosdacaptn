@@ -50,10 +50,7 @@ const db = nuxtApp.$db
 const players = ref([]);
 
 const props = defineProps(['players']);
-console.log(props)
 players.value = props.players;
-
-console.log(players.value)
 
 const selectedLocation = ref(null);
 const googleLocation = ref(null);
@@ -77,7 +74,6 @@ const updateAutocompleteInput = (lat, lng) => {
     if (status === 'OK') {
       if (results[0]) {
         const formattedAddress = results[0].formatted_address;
-        console.log("User's Current Address:", formattedAddress);
 
         // Set the formatted address to the Autocomplete input field
         googleLocation.value = formattedAddress;

@@ -31,15 +31,7 @@
           </GMapInfoWindow>
         </GMapMarker>
       </GMapMap>
-    </div>
-    <section>
-        <div>
-            <div v-for="game in games">
-                <div>{{ game }}</div>
-                <div>{{ getLatLng(game.data.Ort) }}</div>
-            </div>
-        </div>
-    </section>
+      </div>
   </template>
   
   <script setup lang="ts">
