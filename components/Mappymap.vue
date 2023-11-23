@@ -21,7 +21,7 @@
             :position="getLatLng(game.data.Ort)"
             :clickable="true"
             :draggable="true"
-            @click="openMarker(game.id)"
+            @click="openMarker(game)"
           >
             <GMapInfoWindow
               :closeclick="true"
@@ -29,13 +29,20 @@
               :opened="openedMarkerID === game.id"
             >
             <!-- content of the marker callout --> 
-            <div>{{ game.id }}</div>
+                        <!-- content of the marker callout -->
+              <div>
+                <p>Game ID: {{ game.id }}</p>
+      <!-- Logic to find the player with the highest score -->
+              <div v-if="game.data.players && game.data.players.length > 0">
+                <p>Winner: {{ getPlayerWithMostPoints(game.data.players).name }}</p>
+                <p>Score: {{ getPlayerWithMostPoints(game.data.players).score }}</p>
+              </div>
+              </div>
             </GMapInfoWindow>
           </GMapMarker>
         </GMapMap>
         </div>
   </section>
-  {{ games }}
   </template>
   
   <script setup lang="ts">
@@ -50,6 +57,10 @@
       latitude: number;
       longitude: number;
     };
+    players: {
+      name: string;
+      score: number;
+    }
   };
 }
 
@@ -78,8 +89,17 @@ const games = ref<Game[]>([]);
   };
 };
   
-  const openMarker = (id: string | null) => {
-    openedMarkerID.value = id;
+  const openMarker = (game: Game | null) => {
+    openedMarkerID.value = game ? game.id : null;
+  };
+
+  const getPlayerWithMostPoints = (players: { name: string; score: number }[]) => {
+    if (!players || players.length === 0) {
+      return { name: "", score: 0 }; // Default values if no players or an empty array
+    }
+
+    // Find the player with the highest score
+    return players.reduce((prev, current) => (prev.score > current.score ? prev : current));
   };
   </script>
   
