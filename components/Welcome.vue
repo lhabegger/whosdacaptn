@@ -32,7 +32,7 @@ import { firestore } from '../utils/firebase';
 
       </div>
     </section>
-    <LeaderBoardActionsCallout v-show="isCalloutVisible" v-click-outside="hideCallout" :player="clickedPlayer" :positionX="calloutX"
+    <LeaderBoardActionsCallout v-show="isCalloutVisible" :player="clickedPlayer" :positionX="calloutX"
       :positionY="calloutY" @modifyScore="modifyScore" @hideCallout="hideCallout" />
     <div class="divider"></div>
     <section class="container py-5">
