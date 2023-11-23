@@ -116,7 +116,7 @@ const saveGameToFirebase = async () => {
         const latitude = results[0].geometry.location.lat();
         const longitude = results[0].geometry.location.lng();
         const geoPoint = new GeoPoint(latitude, longitude);
-
+        debugger;
         const gameData = {
           Ort: geoPoint,
           players: players.value.map(player => ({

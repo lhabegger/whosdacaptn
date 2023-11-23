@@ -40,7 +40,9 @@
   
   <script setup lang="ts">
   import { ref, onMounted } from 'vue';
-  
+  const config = useRuntimeConfig()
+
+  // console.log('Runtime config:', config.public)
   interface Game {
   id: string;
   data: {
@@ -51,7 +53,7 @@
   };
 }
 
-const center = ref({ lat: 48.8773406, lng: 9.327774 });
+const center = ref({ lat: 47.376888, lng: 8.541694 });
 const openedMarkerID = ref<string | null>(null);
 const games = ref<Game[]>([]);
   
