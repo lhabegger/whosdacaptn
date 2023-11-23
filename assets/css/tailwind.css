@@ -80,4 +80,7 @@
   .heading2 {
     @apply text-4xl font-extrabold dark:text-white
   }
+  .heading3 {
+    @apply text-2xl font-extrabold dark:text-white
+  }
 }

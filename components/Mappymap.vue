@@ -1,37 +1,41 @@
 <template>
-    <div class="mb-20">
-      <GMapMap
-        :center="center"
-        :zoom="8"
-        :options="{
-          zoomControl: true,
-          mapTypeControl: false,
-          scaleControl: false,
-          streetViewControl: false,
-          rotateControl: false,
-          fullscreenControl: true,
-        }"
-        style="width: 500px; height: 300px; margin: auto"
-      >
-        <GMapMarker
-          :key="game.id"
-          v-for="(game, index) in games"
-          :position="getLatLng(game.data.Ort)"
-          :clickable="true"
-          :draggable="true"
-          @click="openMarker(game.id)"
+  <section class="container py-5">
+         <h3 class="heading3">Game Map</h3>
+      <div class="pt-5">
+        <GMapMap
+          :center="center"
+          :zoom="8"
+          :options="{
+            zoomControl: true,
+            mapTypeControl: false,
+            scaleControl: false,
+            streetViewControl: false,
+            rotateControl: false,
+            fullscreenControl: true,
+          }"
+          style="width: 100%; height: 300px; margin: auto;"
         >
-          <GMapInfoWindow
-            :closeclick="true"
-            @closeclick="openMarker(null)"
-            :opened="openedMarkerID === game.id"
+          <GMapMarker
+            :key="game.id"
+            v-for="(game, index) in games"
+            :position="getLatLng(game.data.Ort)"
+            :clickable="true"
+            :draggable="true"
+            @click="openMarker(game.id)"
           >
-          <!-- content of the marker callout --> 
-          <div>{{ game.id }}</div>
-          </GMapInfoWindow>
-        </GMapMarker>
-      </GMapMap>
-      </div>
+            <GMapInfoWindow
+              :closeclick="true"
+              @closeclick="openMarker(null)"
+              :opened="openedMarkerID === game.id"
+            >
+            <!-- content of the marker callout --> 
+            <div>{{ game.id }}</div>
+            </GMapInfoWindow>
+          </GMapMarker>
+        </GMapMap>
+        </div>
+  </section>
+
   </template>
   
   <script setup lang="ts">
