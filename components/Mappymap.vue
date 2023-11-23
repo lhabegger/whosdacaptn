@@ -35,7 +35,7 @@
         </GMapMap>
         </div>
   </section>
-
+  {{ games }}
   </template>
   
   <script setup lang="ts">
@@ -47,8 +47,8 @@
   id: string;
   data: {
     Ort: {
-      _latitude: number;
-      _longitude: number;
+      latitude: number;
+      longitude: number;
     };
   };
 }
@@ -71,10 +71,10 @@ const games = ref<Game[]>([]);
     }
   });
 
-  const getLatLng = (ort: { _latitude: number; _longitude: number }): { lat: number; lng: number } => {
+  const getLatLng = (ort: { latitude: number; longitude: number }): { lat: number; lng: number } => {
   return {
-    lat: ort._latitude,
-    lng: ort._longitude
+    lat: ort.latitude,
+    lng: ort.longitude
   };
 };
   
