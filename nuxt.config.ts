@@ -35,12 +35,12 @@ export default defineNuxtConfig({
         { rel: "stylesheet", href: "https://rsms.me/inter/inter.css" },
         { rel: "preconnect", href: "https://rsms.me/" },
       ],
-      // script: [
-      //   {
-      //     src: "https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDVsaZGmc2szDjt_xDqeoU_rKl5qNbJlOI",
-      //     defer: true,
-      //   },
-      // ],
+      script: [
+        {
+          src: "https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDVsaZGmc2szDjt_xDqeoU_rKl5qNbJlOI",
+          defer: true,
+        },
+      ],
     },
   },
   sourcemap: {

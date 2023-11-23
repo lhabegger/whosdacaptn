@@ -9,6 +9,7 @@
             Ort
             <input
             id="autocomplete"
+            ref="autocompleteInput"
             type="text"
             placeholder="Location"
             v-model="googleLocation"
@@ -40,18 +41,27 @@
 
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { EmitFlags } from 'typescript';
 import { ref, onMounted } from 'vue';
 import { collection, addDoc, GeoPoint  } from 'firebase/firestore'
-
+const autocompleteInput = ref(null);
 const nuxtApp = useNuxtApp();
 const db = nuxtApp.$db
-const players = ref([]);
+//const players = ref([]);
+const props = defineProps(['players'])
 
-const props = defineProps(['players']);
-players.value = props.players;
+// counter only uses props.initialCounter as the initial value;
+// it is disconnected from future prop updates.
+interface Player {
+  name: string
+  score: number
+  customScore: number
+}
 
+const players = ref < Player[] >(props.players)
+const emit = defineEmits(['closeModal'])
+console.log(players.value)
 const selectedLocation = ref(null);
 const googleLocation = ref(null);
 
@@ -77,6 +87,11 @@ const updateAutocompleteInput = (lat, lng) => {
 
         // Set the formatted address to the Autocomplete input field
         googleLocation.value = formattedAddress;
+
+        // Initialize autocomplete on the input field
+        const autocomplete = new google.maps.places.Autocomplete(autocompleteInput.value);
+        autocomplete.setFields(['formatted_address']);
+        autocomplete.setTypes(['geocode']);
       } else {
         console.error("No results found");
         // Handle no results found
@@ -116,7 +131,6 @@ const saveGameToFirebase = async () => {
         const latitude = results[0].geometry.location.lat();
         const longitude = results[0].geometry.location.lng();
         const geoPoint = new GeoPoint(latitude, longitude);
-        debugger;
         const gameData = {
           Ort: geoPoint,
           players: players.value.map(player => ({
@@ -129,7 +143,9 @@ const saveGameToFirebase = async () => {
         const newGameDoc = await addDoc(gameRef, gameData);
 
         console.log('Document written with ID:', newGameDoc.id);
+        emit('closeModal')
         return newGameDoc.id;
+
       } else {
         console.error('Geocode was not successful for the following reason:', status);
       }
