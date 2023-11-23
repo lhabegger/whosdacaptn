@@ -55,7 +55,6 @@ import { firestore } from '../utils/firebase';
   
 <script setup lang="ts">
 import { ref, onMounted, computed, watch } from 'vue'
-import ClickOutside from './plugins/clickoutside.js'; //
 
 interface Player {
   name: string

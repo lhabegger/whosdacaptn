@@ -2,11 +2,14 @@
 <template>
                     <div v-if="isVisible" class="callout" :style="{ top: positionY + 'px', left: positionX + 'px' }">
                         <button class="btn btn-modal-close" @click="$emit('hideCallout')">X</button>
+                        
                         <div>
+                            <h3 class="heading3">{{ player }} scored!</h3>
                             <button class="btn btn-xs btn-primary join-item" @click="modifyScore(player, 10)">+10</button>
                             <button class="btn btn-xs btn-primary join-item" @click="modifyScore(player, 11)">+11</button>
                             <button class="btn btn-xs btn-primary join-item" @click="modifyScore(player, 12)">+12</button>
                             <button class="btn btn-xs btn-primary join-item" @click="modifyScore(player, 13)">+13</button>
+                            
                         </div>
                         <div>
                             <button class="btn btn-xs btn-primary join-item" @click="modifyScore(player, -1)">-1</button>
